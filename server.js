@@ -67,6 +67,32 @@ app.get('/subcategories', (req, res) => {
 });
 
 
+// get all duas
+app.get('/duas', (req, res) => {
+    const { cat, subcat } = req.query;
+
+    let query = 'SELECT * FROM dua WHERE 1=1';
+    const params = [];
+
+    if (cat) {
+        query += ' AND cat_id = ?';
+        params.push(cat);
+    }
+    if (subcat) {
+        query += ' AND subcat_id = ?';
+        params.push(subcat);
+    }
+
+    db.all(query, params, (err, rows) => {
+        if (err) {
+            console.error('Error fetching duas:', err.message);
+            res.status(500).json({ error: 'Failed to fetch duas' });
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
 
 
 
