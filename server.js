@@ -4,7 +4,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 // Middlewares
 const corsOptions = {
@@ -82,7 +82,7 @@ app.get('/subcategories', (req, res) => {
 
 // get all duas
 app.get('/duas', (req, res) => {
-    const { cat, subcat } = req.query;
+    const { cat, subcat, dua } = req.query;
 
     let query = 'SELECT * FROM dua WHERE 1=1';
     const params = [];
@@ -94,6 +94,10 @@ app.get('/duas', (req, res) => {
     if (subcat) {
         query += ' AND subcat_id = ?';
         params.push(subcat);
+    }
+    if (dua) {
+        query += ' AND dua_id = ?';
+        params.push(dua);
     }
 
     db.all(query, params, (err, rows) => {
