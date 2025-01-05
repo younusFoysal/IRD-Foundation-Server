@@ -44,6 +44,28 @@ app.get('/categories', (req, res) => {
     });
 });
 
+// API to get all subcategories for a category
+app.get('/subcategories', (req, res) => {
+    const { cat } = req.query;
+
+    let query = 'SELECT * FROM sub_category WHERE 1=1';
+    const params = [];
+
+    if (cat) {
+        query += ' AND cat_id = ?';
+        params.push(cat);
+    }
+
+    db.all(query, params, (err, rows) => {
+        if (err) {
+            console.error('Error fetching subcategories:', err.message);
+            res.status(500).json({ error: 'Failed to fetch subcategories' });
+        } else {
+            res.json(rows);
+        }
+    });
+});
+
 
 
 
