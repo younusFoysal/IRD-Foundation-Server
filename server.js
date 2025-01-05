@@ -21,13 +21,23 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 
-// Testing connction
-app.get('/data', (req, res) => {
-    const query = 'SELECT * FROM category';
+// API to get all categories
+app.get('/categories', (req, res) => {
+    const { cat } = req.query;
 
-    db.all(query, [], (err, rows) => {
+    // Start with the base query
+    let query = 'SELECT * FROM category WHERE 1=1';
+    const params = [];
+
+    if (cat) {
+        query += ' AND cat_id = ?';
+        params.push(cat);
+    }
+
+    db.all(query, params, (err, rows) => {
         if (err) {
-            res.status(500).json({ error: err.message });
+            console.error('Error fetching categories:', err.message);
+            res.status(500).json({ error: 'Failed to fetch categories' });
         } else {
             res.json(rows);
         }
