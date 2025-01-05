@@ -21,11 +21,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
 });
 
 
-// API to get all categories
+// Get all categories
 app.get('/categories', (req, res) => {
     const { cat } = req.query;
 
-    // Start with the base query
+    // base query
     let query = 'SELECT * FROM category WHERE 1=1';
     const params = [];
 
@@ -43,6 +43,8 @@ app.get('/categories', (req, res) => {
         }
     });
 });
+
+
 
 
 
