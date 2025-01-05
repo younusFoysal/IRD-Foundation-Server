@@ -114,7 +114,9 @@ app.get('/dua', (req, res) => {
 });
 
 
-
+app.get('/', (req, res) => {
+    res.send('IRD Foundation Server is Running...')
+})
 
 // Start the server
 app.listen(PORT, () => {
