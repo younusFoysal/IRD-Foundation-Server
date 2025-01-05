@@ -94,6 +94,26 @@ app.get('/duas', (req, res) => {
 });
 
 
+// get a specific dua by its ID
+app.get('/dua', (req, res) => {
+    const { id } = req.query;
+
+    if (!id) {
+        return res.status(400).json({ error: 'Dua ID is required' });
+    }
+
+    const query = 'SELECT * FROM dua WHERE dua_id = ?';
+    db.get(query, [id], (err, row) => {
+        if (err) {
+            console.error('Error fetching dua:', err.message);
+            res.status(500).json({ error: 'Failed to fetch dua' });
+        } else {
+            res.json(row);
+        }
+    });
+});
+
+
 
 
 // Start the server
