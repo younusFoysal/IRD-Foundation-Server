@@ -1,5 +1,7 @@
 # API Documentation
 
+### Live Link: https://irdserver.vercel.app/
+
 ## Project Overview
 This project provides an API to interact with a SQLite database containing categories, subcategories, and duas. It is designed for efficient data retrieval and filtering to support applications that require multilingual support and structured data.
 
